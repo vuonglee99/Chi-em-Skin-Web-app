@@ -1,0 +1,15 @@
+.image-rotate {
+    width: 100px;
+    height: 100px;
+    transition: width 1.5s, height 1.5s, transform 1.5s;
+  }
+  
+  .image-rotate:hover {
+    width: 150px;
+    height: 150px;
+    transform: rotate(360deg);
+  }
+
+  .modal-transition{
+  
+}

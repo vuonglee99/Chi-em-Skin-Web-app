@@ -1,0 +1,145 @@
+<nav class="navbar navbar-expand-lg fixed-top " color-on-scroll="500" style="background-color: #EF5350 !important;">
+  <div class="container">
+    <div class="dropdown button-dropdown">
+      <div ngbDropdown>
+        <a class="dropdown-toggle" ngbDropdownToggle>
+          <span class="button-bar"></span>
+          <span class="button-bar"></span>
+          <span class="button-bar"></span>
+        </a>
+        <div ngbDropdownMenu data-spy="scroll">
+          <a class="dropdown-item link-item" *ngFor="let type of productTypeList"
+            (click)="redirectTo('/product',type.PRODTYPE_NAME)">{{type.PRODTYPE_NAME}}</a>
+        </div>
+      </div>
+    </div>
+    <div class="navbar-translate">
+      <a class="navbar-brand " placement="bottom" ngbTooltip="Danh sách các loại sản phẩm">
+        Danh mục sản phẩm
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler"
+        aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation"
+        (click)="sidebarToggle()">
+        <span class="navbar-toggler-bar bar1"></span>
+        <span class="navbar-toggler-bar bar2"></span>
+        <span class="navbar-toggler-bar bar3"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" data-nav-image="assets/img/blurred-image-1.jpg">
+      <ul class="navbar-nav ml-auto" style="cursor: pointer;">
+        <li class="nav-item">
+          <div class="form-group">
+            <input id="POST_PRODUCT_TYPE" type="text" class="form-control " placeholder="Bạn muốn tìm gì?"
+              [(ngModel)]="productNameInput" [ngbTypeahead]="search" (focus)="focus$.next($any($event).target.value)"
+              (click)="click$.next($any($event).target.value)" #instance="ngbTypeahead"
+              (keydown)="searchProductByName($event)" placement="bottom" ngbTooltip="Enter để tìm kiếm" />
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="redirectTo('/index/','')">
+            <span class="icon-home icon-x-large"></span>
+            <p>&nbsp;Trang chủ</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="redirectTo('/post','')">
+            <span class="icon-journal icon-x-large"><span class="path1"></span><span class="path2"></span><span
+                class="path3"></span><span class="path4"></span><span class="path5"></span><span
+                class="path6"></span><span class="path7"></span><span class="path8"></span><span
+                class="path9"></span><span class="path10"></span><span class="path11"></span><span
+                class="path12"></span><span class="path13"></span><span class="path14"></span><span
+                class="path15"></span><span class="path16"></span><span class="path17"></span></span>
+            <p>&nbsp;Bài viết</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="redirectTo('/skincare/routine/','')">
+            <span class="icon-face-mask icon-x-large"><span class="path1"></span><span class="path2"></span><span
+                class="path3"></span><span class="path4"></span><span class="path5"></span><span
+                class="path6"></span><span class="path7"></span><span class="path8"></span><span
+                class="path9"></span><span class="path10"></span><span class="path11"></span><span
+                class="path12"></span><span class="path13"></span><span class="path14"></span><span
+                class="path15"></span><span class="path16"></span></span>
+            <p>&nbsp;Chăm sóc da</p>
+
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="redirectTo('product/cart','')">
+            <span class="icon-shopping-cart-1 icon-x-large"><span class="path1"></span><span class="path2"></span><span
+                class="path3"></span><span class="path4"></span><span class="path5"></span><span
+                class="path6"></span><span class="path7"></span><span class="path8"></span><span
+                class="path9"></span><span class="path10"></span><span class="path11"></span><span
+                class="path12"></span><span class="path13"></span><span class="path14"></span></span>
+            <p>&nbsp;Giỏ hàng</p>
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="unAuth">
+          <a class="nav-link btn btn-neutral" [routerLink]="['/account/login']">
+            <span class="icon-enter icon-x-large"></span>
+            <p>&nbsp;Đăng nhập</p>
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="!unAuth&&currentUser">
+          <div class="dropdown button-dropdown">
+            <div ngbDropdown>
+              <a class="dropdown-toggle" ngbDropdownToggle>
+                <span class="icon-user icon-x-large icon-yellow"></span>
+                <p>&nbsp;{{currentUser.USER_NAME}}</p>
+              </a>
+              <div ngbDropdownMenu data-spy="scroll">
+                <a class="dropdown-item link-item" (click)="redirectTo('/product/orders','')"><span
+                    class="icon-clipboard1 icon-x-large"><span class="path1"></span><span class="path2"></span><span
+                      class="path3"></span><span class="path4"></span><span class="path5"></span><span
+                      class="path6"></span><span class="path7"></span><span class="path8"></span><span
+                      class="path9"></span><span class="path10"></span></span>&nbsp;&nbsp;Đơn hàng của
+                  tôi</a>
+                <a class="dropdown-item link-item" (click)="redirectTo('/post/mypost/','')"><span
+                    class="icon-megaphone icon-x-large"><span class="path1"></span><span class="path2"></span><span
+                      class="path3"></span><span class="path4"></span><span class="path5"></span><span
+                      class="path6"></span><span class="path7"></span><span
+                      class="path8"></span></span>&nbsp;&nbsp;Thông báo của tôi <span class="badge">5</span></a>
+
+                <a class="dropdown-item link-item" (click)="redirectTo('/post/mypost/','')"><span
+                    class="icon-journal icon-x-large"><span class="path1"></span><span class="path2"></span><span
+                      class="path3"></span><span class="path4"></span><span class="path5"></span><span
+                      class="path6"></span><span class="path7"></span><span class="path8"></span><span
+                      class="path9"></span><span class="path10"></span><span class="path11"></span><span
+                      class="path12"></span><span class="path13"></span><span class="path14"></span><span
+                      class="path15"></span><span class="path16"></span><span
+                      class="path17"></span></span>&nbsp;&nbsp;Bài viết của tôi</a>
+                <a class="dropdown-item link-item" (click)="redirectTo('/post/account/','')"><span
+                    class="icon-cog icon-x-large icon-yellow"></span>&nbsp;&nbsp;Tài khoản của
+                  tôi</a>
+                <a class="dropdown-item link-item" (click)="redirectTo('/post/request/support','')"><span
+                    class="icon-support icon-x-large"><span class="path1"></span><span class="path2"></span><span
+                      class="path3"></span><span class="path4"></span><span class="path5"></span><span
+                      class="path6"></span><span class="path7"></span><span class="path8"></span><span
+                      class="path9"></span><span class="path10"></span><span class="path11"></span><span
+                      class="path12"></span><span class="path13"></span><span class="path14"></span><span
+                      class="path15"></span><span class="path16"></span></span>&nbsp;&nbsp;Liên hệ hỗ trợ</a>
+
+                <a class="dropdown-item link-item" (click)="logOut()"><span
+                    class="icon-exit icon-x-large icon-yellow"></span>&nbsp;&nbsp;Đăng xuất tài
+                  khoản</a>
+
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" rel="tooltip" title="Follow us on Twitter" data-placement="bottom">
+            <i class="fab fa-twitter"></i>
+            <p class="d-lg-none d-xl-none">Twitter</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" rel="tooltip" title="Like us on Facebook" data-placement="bottom">
+            <i class="fab fa-facebook-square"></i>
+            <p class="d-lg-none d-xl-none">Facebook</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

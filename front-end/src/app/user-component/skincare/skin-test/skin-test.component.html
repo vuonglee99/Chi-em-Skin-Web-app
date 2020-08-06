@@ -1,0 +1,109 @@
+<div [ngClass]="{'disable': isBusy}" class="wrapper p-2 wow fadeInDown" style="margin-top: 5rem !important;">
+    <div class="row ">
+        <div class="col-12 mb-5">
+            <app-skincare-menu [active]="'SkinTest'"></app-skincare-menu>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4 wow slideInLeft">
+            <img src="assets/img/skincare/skincare_test.jpg" alt="image" width="100%">
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-8 wow slideInRight">
+
+            <div *ngIf="!isTesting">
+                <div class="card p-2">
+                    <div class="col-4 text-center title-box-new-no-upper text-red" >
+                        <span class=" text-title ">Lưu ý</span>
+                    </div>
+                    <div class="row pl-2 pr-2" style="height: 250px;">
+                        <p class="col-md-12">Bài kiểm da ba gồm 8 câu hỏi cần thiết để xác định  loại da
+                            của bạn và đưa ra liệu trình phù hợp để bạn chăm sóc da tốt hơn.</p>
+                        <p class="col-md-12">Thời gian: <span><strong>3-5 phút.</strong></span> </p>
+                        <p class="col-md-12"> Cách thức: <strong>Chọn câu trả lời phù hợp với bạn.</strong></p>
+                        <p class="col-md-12">Chi phí: <span><strong>Miễn phí.</strong></span> </p>
+                        <p class="col-md-12">Lưu ý: <span><strong>Đọc kĩ câu hỏi trước khi lựa chọn đáp án để có kết
+                                    quả chính xác nhất.</strong></span> </p>
+
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-danger col-sm-4 col-md-4 col-lg-2 "
+                            (click)="startTest()">Bắt đâu</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div *ngIf="isTesting">
+                <div class="card">
+                    <div class="col-4 text-center title-box-new-no-upper text-red" >
+                        <span class=" text-title ">Nội dung bài kiểm tra</span>
+                    </div>
+                    <div class="row pl-2 pr-2" *ngIf="skinTest">
+                        <div class=" col-md-12">
+                            <p-progressBar [value]="value" [showValue]="false" [style]="{'height': '10px'}">
+                            </p-progressBar>
+                        </div>
+                        <div class="text-danger col-md-12 mt-4">
+                            <h5>{{skinTest.SKINTEST_QUESTION}}</h5>
+                        </div>
+
+                        <div style="height: 250px;">
+                            <div class="form-check" style="font-size: large;">
+                                <div class=" col-md-12 mt-2">
+                                    <input class="form-check-input radio-button" id="SKINTEST_ANSWER_A" type="radio"
+                                        value="{{skinTest.SKINTEST_ANSWER_A}}" name="SKINTEST_ANSWER"
+                                        (click)="answer('Da khô nhạy cảm')" checked="">
+                                    <label class="form-check-label" for="SKINTEST_ANSWER_A">
+                                        {{skinTest.SKINTEST_ANSWER_A}}
+                                    </label>
+                                </div>
+
+                                <div class=" col-md-12 mt-2">
+                                    <input class="form-check-input radio-button" id="SKINTEST_ANSWER_B" type="radio"
+                                        value="{{skinTest.SKINTEST_ANSWER_B}}" name="SKINTEST_ANSWER"
+                                        (click)="answer('Da khô nhạy cảm')">
+                                    <label class="form-check-label" for="SKINTEST_ANSWER_B">
+                                        {{skinTest.SKINTEST_ANSWER_B}}
+                                    </label>
+                                </div>
+
+                                <div class=" col-md-12 mt-2">
+                                    <input class="form-check-input radio-button" id="SKINTEST_ANSWER_C" type="radio"
+                                        value="{{skinTest.SKINTEST_ANSWER_C}}" name="SKINTEST_ANSWER"
+                                        (click)="answer('Da dầu mụn')">
+                                    <label class="form-check-label" for="SKINTEST_ANSWER_C">
+                                        {{skinTest.SKINTEST_ANSWER_C}}
+                                    </label>
+                                </div>
+
+                                <div class=" col-md-12 mt-2">
+                                    <input class="form-check-input radio-button" id="SKINTEST_ANSWER_D" type="radio"
+                                        value="{{skinTest.SKINTEST_ANSWER_D}}" name="SKINTEST_ANSWER"
+                                        (click)="answer('Da dầu mụn')">
+                                    <label class="form-check-label" for="SKINTEST_ANSWER_D">
+                                        {{skinTest.SKINTEST_ANSWER_D}}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="row pl-1 pr-1" style="justify-content: space-between;">
+                            <button type="button" class="btn btn-secondary col-sm-4 col-md-4 col-lg-2 "
+                                (click)="showPreQuestion()"><i class="fa fa-chevron-left"></i> Quay lại</button>
+                            <button *ngIf="!isFinish" type="button" class="btn btn-danger col-sm-4 col-md-4 col-lg-2 "
+                                (click)="showNextQuestion()">
+                                Tiếp theo <i class="fa fa-chevron-right"></i></button>
+                            <button *ngIf="isFinish" type="button" class="btn btn-danger col-sm-4 col-md-4 col-lg-2 "
+                                (click)="submitTest()"> <i class="pi pi-save"
+                                    style="font-size: x-large;vertical-align: middle;"></i>Lưu
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="isBusy" class="screen-center">
+    <app-spinner></app-spinner>
+</div>

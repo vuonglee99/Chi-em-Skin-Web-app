@@ -1,0 +1,67 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "VuongLee",
+    "version": "1.0.0",
+    "title": "Welcome to Chi-em Skin",
+    "contact": {
+      "email": "vuongnoo99@gmail.com"
+    },
+    "license": {
+      "name":"VuongLee",
+      "url": "https://Vuonglee"
+      }
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Register Request",
+      "description": "API for request login"
+    }
+  ],
+  "path": {
+    "/api/user/register": {
+      "get": {
+        "tags": [
+          "Book Request"
+        ],
+        "summary": "Get book request with given ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Book Request id",
+            "schema": {
+              "$ref": "#/components/schemas/id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/bookRequest"
+            }
+          },
+          "400": {
+            "description": "Failed. Misunderstood Request."
+          },
+          "404": {
+            "description": "Failed. Book request not found."
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+

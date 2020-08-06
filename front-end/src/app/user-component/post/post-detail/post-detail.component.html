@@ -1,0 +1,83 @@
+<div [ngClass]="{'disable': isBusy}" class="wrapper p-2 wow fadeInDown" style="margin-top: 3rem !important;">
+    <div class="row mt-3" style="position: relative;">
+        <div class="col-3 mt-3">
+            <app-post-side-menu ></app-post-side-menu>
+        </div>
+        <div class="col-8 ml-auto mt-3" *ngIf="currentPost">
+            <div class="row card p-2">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-2">
+                            <img src="assets/img/skincare/question_avatar.jpg" alt="Ảnh đại diện" 
+                             class="rounded-circle img-raised" width="50%">
+                        </div>
+                        <div class="col-7 text-left">
+                            <span style="font-size: larger;">{{currentPost.POST_USER_ID}}</span>
+                            <p class="text-red">{{currentPost.POST_DATE}}</p>
+                        </div>
+                        <div class="col-3 text-left" *ngIf="isMaker && !unAuth">
+                            <div ngbDropdown  class="cursor-pointer">
+                                <button class="btn btn-outline-primary btn-sm" ngbDropdownToggle>Thao tác</button>
+                                <div ngbDropdownMenu>
+                                  <button ngbDropdownItem (click)="isEdit=true" class="cursor-pointer">
+                                    <span class="icon-pencil icon-x-large  icon-yellow"></span>&nbsp;Chỉnh sửa</button>
+                                  <button ngbDropdownItem class="cursor-pointer"><span class="icon-lock2 icon-x-large cursor-pointer icon-yellow"></span>
+                                    &nbsp;Ẩn</button>
+                                  <div class="dropdown-divider"></div>
+                                  <button ngbDropdownItem (click)="deletePost()" class="cursor-pointer">
+                                    <span class="icon-bin icon-x-large cursor-pointer icon-yellow"></span>&nbsp;Xóa</button>
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mt-3">
+                    {{currentPost.POST_TITLE}}
+                </div>
+                <div class="col-12 mt-3 ">
+                    <img src="{{currentPost.POST_AVATAR}}" alt="Ảnh-bài-đăng" width="100%" class="image">
+                </div>
+                <div class="col-12 card mt-3 pt-4" style="border-top:1px solid #E0E0E0;">
+                    <p-fieldset legend="Nội dung chi tiết" [toggleable]="true">
+                        <div [innerHTML]="currentPost.POST_CONTENT"></div>
+                    </p-fieldset>
+                </div>
+                <div class="col-12 mt-2 card">
+                    <div class="row " style="border-top: 1px solid #E0E0E0;">
+                        <div class="col-3 text-center m-2 p-2 cursor-pointer item-hover">
+                            <span class="icon-heart2 icon-x-large " style="color: #E91E63;"></span>&nbsp;Yêu thích
+                        </div>
+                        <div class="col-3 text-center m-2 p-2 cursor-pointer item-hover" (click)="showComment()">
+                            <span class="icon-bubbles4 icon-x-large "></span>&nbsp;Bình
+                            luận
+                        </div>
+    
+                        <div class="col-12 form-group mt-2 pt-2" style="border-top:1px solid #E0E0E0;"
+                            *ngIf="isShowComment&&!unAuth">
+                            <input type="text" placeholder="Viết bình luận" class="form-control rounded-pill"
+                                (keydown)="addComment($event,currentPost)" [(ngModel)]="questionInput.QUESTION_CONTENT">
+                        </div>
+                        <!-- <div class="col-2 form-group mt-2" *ngIf="isShowComment&&!unAuth">
+                            <button class="btn btn-primary btn-round" type="button">Gửi</button>
+                        </div> -->
+                        <div *ngIf="unAuth" class="text-center col-12 "
+                        style="border-top:1px solid #E0E0E0;">
+                            <p>Bạn cần đăng nhập để bình luận về bài viết!</p>
+                            <button class="btn btn-primary btn-round" type="button"
+                            (click)="redirectTo('/examples/login','')">
+                                <i class="now-ui-icons ui-2_favourite-28"></i> Đăng nhập
+                            </button>
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <app-question-list [productID]="currentPost.POST_ID" [isPaging]="true" [pageSize]="12" [isProductQuestion]="false"></app-question-list>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="isBusy">
+        <app-spinner></app-spinner>
+    </div>
+</div>

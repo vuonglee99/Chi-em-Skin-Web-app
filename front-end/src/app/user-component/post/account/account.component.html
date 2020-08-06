@@ -1,0 +1,214 @@
+<div [ngClass]="{'disable': isBusy}" class="wrapper p-2 wow fadeInDown" style="margin-top: 3rem !important;">
+    <div class="row mt-3" style="position: relative;">
+        <div class="col-3 mt-3">
+            <app-post-side-menu [active]="'Cài đặt tài khoản'"></app-post-side-menu>
+        </div>
+        <div class="col-8 ml-auto mt-3">
+            <p-tabView>
+                <p-tabPanel header="Thông tin chung" [selected]="true" leftIcon="fa fa-info-circle">
+                    <div class="row mt-3 p-2">
+                        <div class="col-md-4">
+                            <img src="{{currentUser.USER_AVATAR}}" alt="Ảnh-đại-diện" class="rounded-circle img-raised"
+                                width="50%">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span><strong>Tên đăng nhập:</strong> {{currentUser.USER_NAME}}</span>
+                                    <hr>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <span><strong>Ngày sinh:</strong> {{currentUser.USER_BIRTHDAY}}</span>
+                                    <span class="ml-5"><strong>Giới tính: </strong> {{currentUser.USER_GENDER}}</span>
+                                    <hr>
+                                </div>
+                                <div class="col-md-12">
+                                    <span><strong>Số điện thoại:</strong> {{currentUser.USER_PHONENUMBER}}</span>
+                                    <hr>
+                                </div>
+                                <div class="col-md-12">
+                                    <span><strong>Email:</strong> {{currentUser.USER_EMAIL}}</span>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <span><strong>Địa chỉ:</strong> {{currentUser.USER_ADDRESS}}</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-4 mt-5">
+                            
+                            <div class="card panel" style="padding: 1em;height: 150px;border: 2px solid #E91E63;">
+                                <strong>Tổng đơn hàng</strong>
+                                10
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mt-5">
+                            <div class="card panel" style="padding: 1em;height: 150px;border: 2px solid #D500F9;">
+                                <strong>Tổng bài đăng</strong>
+                                5
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 wow bounce mt-5">
+                            
+                            <div class="card panel" style="padding: 1em;height: 150px;border: 2px solid #FF1744;">
+                                <strong>Tổng điểm tích lũy</strong>
+                                10
+                            </div>
+                        </div> -->
+                    </div>
+                </p-tabPanel>
+                <p-tabPanel header="Giới thiệu bản thân" leftIcon="fa fa-user-circle-o">
+                    Thích gì thì viết vô đây
+                </p-tabPanel>
+                <p-tabPanel header="Cài đặt tài khoản">
+                    <div class="row">
+                        <div class="col-4 text-left">
+                            <img [src]="imgURL" alt="Ảnh-đại-diện" class="rounded-circle img-raised" *ngIf="imgURL"
+                                width="50%">
+                            <input #file type="file" accept='image/*' (change)="preview(file.files)" class="ml-3">
+                        </div>
+                        <div class="col-8">
+
+                        </div>
+                        <form [formGroup]="editUserForm" class="col-6 mt-3" data-toggle="validator" role="form">
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label for="USER_NAME"><strong>Tên đăng nhập<span
+                                                style="color: red;">(*)</span></strong></label>
+                                    <div class="input-group" [ngClass]="{'input-group-focus':focus===true}">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fa fa-user-circle"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="Tên đăng nhập"
+                                            (focus)="focus=true" (blur)="focus=false" name=" USER_NAME"
+                                            [(ngModel)]="editUser.USER_NAME" formControlName="USER_NAME" required>
+
+
+                                    </div>
+                                </div>
+
+                                <div class=" form-group col-md-12 "
+                                    *ngIf="editUserForm.controls['USER_NAME'].errors && editUserForm.controls['USER_NAME'].dirty">
+                                    <p-message severity="error" text="Không được bỏ trống tên đăng nhập."
+                                        *ngIf="editUserForm.controls['USER_NAME'].errors['required']"></p-message>
+                                    <p-message severity="error" text="Yêu cầu tối thiểu 6 kí tự."
+                                        *ngIf="editUserForm.controls['USER_NAME'].errors['minlength']"></p-message>
+                                    <p-message severity="error" text="Yêu cầu tối đa 50 kí tự."
+                                        *ngIf="editUserForm.controls['USER_NAME'].errors['maxlength']"></p-message>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <label for="USER_BIRTHDAY"><strong>Ngày sinh<span
+                                                style="color: red;">(*)</span></strong></label>
+                                    <div class="datepicker-container">
+                                        <div class="form-group">
+                                            <input class="form-control datetimepicker" type="date"
+                                                placeholder="06/07/2017" name="dp" [(ngModel)]="dateInput"
+                                                [ngModelOptions]="{standalone: true}">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 form-group">
+                                    <label for="USER_GENDER"><strong>Giới tính<span
+                                                style="color: red;">(*)</span></strong></label>
+                                    <select class="form-control" [(ngModel)]="editUser.USER_GENDER"
+                                        [ngModelOptions]="{standalone: true}">
+                                        <option value="nam">Nam</option>
+                                        <option value="nữ">Nữ</option>
+
+                                    </select>
+                                </div>
+
+                            </div>
+                        </form>
+                        <form [formGroup]="editUserForm" class="col-6 mt-3">
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label for="USER_EMAIL"><strong>Email<span
+                                                style="color: red;">(*)</span></strong></label>
+                                    <div class="input-group" [ngClass]="{'input-group-focus':focus2===true}">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="pi pi-envelope"></i>
+                                            </span>
+                                        </div>
+                                        <input type="email" class="form-control" placeholder="Địa chỉ Email"
+                                            (focus)="focus2=true" (blur)="focus2=false" name=" USER_NAME"
+                                            [(ngModel)]="editUser.USER_EMAIL" formControlName="USER_EMAIL" required>
+                                    </div>
+                                </div>
+
+                                <div class=" form-group col-md-12"
+                                    *ngIf="editUserForm.controls['USER_EMAIL'].errors && editUserForm.controls['USER_EMAIL'].dirty">
+                                    <p-message severity="error" text="Không được bỏ trống email."
+                                        *ngIf="editUserForm.controls['USER_EMAIL'].errors['required']"></p-message>
+                                </div>
+
+
+                                <div class="form-group col-md-12">
+                                    <label for="USER_PHONENUMBER"><strong>Só điện thoại<span
+                                                style="color: red;">(*)</span></strong></label>
+                                    <div class="input-group" [ngClass]="{'input-group-focus':focus3===true}">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fa fa-mobile"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="Số điện thoại"
+                                            (focus)="focus3=true" (blur)="focus3=false" name=" USER_PHONENUMBER"
+                                            [(ngModel)]="editUser.USER_PHONENUMBER" formControlName="USER_PHONENUMBER"
+                                            required>
+                                    </div>
+                                </div>
+                                <div class=" form-group col-md-12 "
+                                    *ngIf="editUserForm.controls['USER_PHONENUMBER'].errors && editUserForm.controls['USER_PHONENUMBER'].dirty">
+                                    <p-message severity="error" text="Không được bỏ trống số diện thoại."
+                                        *ngIf="editUserForm.controls['USER_PHONENUMBER'].errors['required']">
+                                    </p-message>
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    <label for="USER_ADDRESS"><strong>Địa chỉ<span
+                                                style="color: red;">(*)</span></strong></label>
+
+                                    <textarea type="text" class="form-control textarea" placeholder="Địa chỉ"
+                                        (focus)="focus4=true" (blur)="focus4=false" name=" USER_ADDRESS"
+                                        [(ngModel)]="editUser.USER_ADDRESS" formControlName="USER_ADDRESS"
+                                        required></textarea>
+
+                                </div>
+
+                                <div class=" form-group col-md-12"
+                                    *ngIf="editUserForm.controls['USER_ADDRESS'].errors && editUserForm.controls['USER_ADDRESS'].dirty">
+                                    <p-message severity="error" text="Không được bỏ trống địa chỉ."
+                                        *ngIf="editUserForm.controls['USER_ADDRESS'].errors['required']"></p-message>
+                                </div>
+
+                            </div>
+                        </form>
+                        <div class="col-12 text-left mt-3">
+                            <button type="button" class="btn  btn-round " style="background-color: #66BB6A;"
+                                (click)="setEditUser()"><span class="icon-spinner11 icon-x-large"></span>&nbsp;Đặt
+                                lại</button>
+                            <button type="button" class=" btn  btn-primary btn-round " [disabled]="!editUserForm.valid"
+                                (click)="updateUser()"><span class="icon-cloud-upload"
+                                    style="font-size: x-large;color: #7B1FA2;vertical-align: middle;"></span>&nbsp;Lưu
+                                chỉnh sửa</button>
+                        </div>
+                    </div>
+
+                </p-tabPanel>
+            </p-tabView>
+        </div>
+    </div>
+    <div *ngIf="isBusy" class="screen-center">
+        <app-spinner></app-spinner>
+    </div>
+</div>

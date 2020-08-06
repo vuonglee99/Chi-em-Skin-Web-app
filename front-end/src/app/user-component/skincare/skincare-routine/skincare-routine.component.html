@@ -1,0 +1,99 @@
+<div [ngClass]="{'disable': isBusy}" class="wrapper p-4 wow fadeInDown" style="margin-top: 5rem !important;">
+    <div class="row ">
+        <div class="col-12">
+            <app-skincare-menu [active]="'SkincareRoutine'"></app-skincare-menu>
+        </div>
+        <div class="col-12 text-red text-title mt-3" *ngIf="routineList[0]">
+            Quy trình dưỡng da dành cho {{routineList[0].SKINTYPE_NAME}}
+        </div>
+        <div class="col-12 mt-5">
+            <div class="row">
+
+                <div class="col-lg-3 col-md-3 col-sm-4 card p-2" *ngFor="let routine of routineList">
+                    <div>Bước {{routine.ROUTINE_NUMBER}}: <strong>{{routine.ROUTINE_NAME}}</strong></div>
+                    <p-rating [ngModel]="routine.ROUTINE_RATING" ngDefaultControl readonly="true" stars="5"
+                        [cancel]="false"></p-rating>
+                    <div class="text-center mt-2">
+                        <img src="{{routine.ROUTINE_IMAGE}}" class="box-shadow cursor-pointer image-rotate"
+                            alt="{{routine.ROUTINE_PRODUCT}}" placement="top" ngbTooltip="Xem chi tiết"
+                            (click)="open(classic,'' , '',routine)">
+                    </div>
+                    <br>
+                    <br>
+                    <p class="link-item cursor-pointer" placement="right" ngbTooltip="Xem chi tiết"
+                        (click)="open(classic,'' , '',routine)">{{routine.ROUTINE_PRODUCT | slice: 0:50}}...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #classic let-c="close" let-d="dismiss" class="modal-transition">
+        <div class="modal-header justify-content-center">
+            <button type="button" class="close" (click)="d('Cross click')">
+                <i class="now-ui-icons ui-1_simple-remove"></i>
+            </button>
+            <h4 class="title title-up text-red">Chi tiết</h4>
+        </div>
+        <div class="modal-body row" *ngIf="currentRoutine &&!editting">
+            <div class="col-12">
+                Bước {{currentRoutine.ROUTINE_NUMBER}}: <strong>{{currentRoutine.ROUTINE_NAME}}</strong>
+            </div>
+            <div class="col-12 mt-2">
+                <span>Mức độ ưu tiên:<p-rating [ngModel]="currentRoutine.ROUTINE_RATING" ngDefaultControl
+                        readonly="true" stars="5" [cancel]="false"></p-rating>
+                </span>
+            </div>
+            <div class="text-center mt-2 col-12 wow bounce">
+                <img src="{{currentRoutine.ROUTINE_IMAGE}}" class="box-shadow" alt="{{currentRoutine.ROUTINE_PRODUCT}}"
+                    width="80%" placement="bottom" ngbTooltip="{{currentRoutine.ROUTINE_NAME}}">
+            </div>
+            <div class="col-12 mt-2 ">
+                <span class="text-red"><strong>Tên sản phẩm: </strong></span>
+                <span class="link-item cursor-pointer" placement="bottom" ngbTooltip="Tìm kiếm sản phẩm"
+                    (click)="searchProductByName()">{{currentRoutine.ROUTINE_PRODUCT}}</span>
+            </div>
+            <div class="col-12 mt-2">
+                <span class="text-red"><strong>Ghi chú:</strong></span>
+                {{currentRoutine.ROUTINE_NOTE}}
+            </div>
+        </div>
+        <div class="modal-body row" *ngIf="editCurrentRoutine && editting">
+            <div class="col-12">
+                Bước {{editCurrentRoutine.ROUTINE_NUMBER}}: <strong>{{editCurrentRoutine.ROUTINE_NAME}}</strong>
+            </div>
+            <div class="col-12 mt-2">
+                <span>Mức độ ưu tiên:<p-rating [ngModel]="editCurrentRoutine.ROUTINE_RATING" ngDefaultControl
+                        readonly="true" stars="5" [cancel]="false"></p-rating>
+                </span>
+            </div>
+            <div class=" mt-2 col-12 ">
+                <p-fileUpload name="imageURL" (onSelect)="onFileSelected($event)" multiple="false" accept="image/*"
+                    maxFileSize="5000000" fileLimit="1" [ngClass]="'upload'">
+                    <ng-template pTemplate="content">
+                    </ng-template>
+                </p-fileUpload>
+            </div>
+            <div class="col-12 mt-2 form-group">
+                <span class="text-red"><strong>Tên sản phẩm: </strong></span>
+                <textarea class="form-control textarea" rows="2" placeholder="Tên sản phẩm"
+                    [(ngModel)]="editCurrentRoutine.ROUTINE_PRODUCT" name="ROUTINE_PRODUCT"></textarea>
+            </div>
+            <div class="col-12 mt-2 form-group">
+                <span class="text-red"><strong>Ghi chú: </strong></span>
+                <textarea class="form-control textarea" rows="2" placeholder="Ghi chú"
+                    [(ngModel)]="editCurrentRoutine.ROUTINE_NOTE" name="ROUTINE_NOTE"></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary btn-round" *ngIf="!editting" (click)="enableEditRoutine()">
+                <span class="icon-pencil icon-x-large"></span>&nbsp;Thay đổi</button>
+            <button type="button" class="btn btn-default btn-round" *ngIf="editting" (click)="enableEditRoutine()">
+                <span class="icon-cancel-circle icon-x-large"></span>&nbsp;Hủy</button>
+            <button type="button" class="btn btn-primary btn-round" *ngIf="editting" (click)="saveEditRoutine()">
+                <span class="icon-floppy-disk icon-x-large"></span>&nbsp;Lưu</button>
+        </div>
+    </ng-template>
+    <div *ngIf="isBusy" class="screen-center">
+        <app-spinner></app-spinner>
+    </div>
+</div>

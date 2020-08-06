@@ -1,0 +1,52 @@
+<app-navbar></app-navbar>
+<router-outlet></router-outlet>
+<footer class="footer" data-background-color="black" style="margin-top: 5rem;">
+    <div class="container">
+        <div class="row mb-3" >
+            <ul class="col-lg-4 col-md-4 col-sm-6" class="list-info">
+                <li>
+                    <p>Hotline chăm sóc khách hàng: <span>19001009</span></p>
+                </li>
+                <li class="cursor-pointer link-item">
+                    <a >Các câu hỏi thường gặp</a>
+                </li>
+                <li class="cursor-pointer link-item">
+                    <a>Gửi yêu cầu hỗ trợ</a>
+                </li>
+                <li class="cursor-pointer link-item">
+                    <a>Hướng dẫn đặt hàng</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <nav>
+        <ul>
+            <li>
+                <a href="https://www.creative-tim.com">
+                    Creative Tim
+                </a>
+            </li>
+            <li>
+                <a href="https://www.creative-tim.com/about-us">
+                    About Us
+                </a>
+            </li>
+            <li>
+                <a href="http://blog.creative-tim.com">
+                    Blog
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/creativetimofficial/now-ui-kit/blob/master/LICENSE.md">
+                    MIT License
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <div class="copyright">
+        &copy;
+        {{data | date: 'yyyy'}}, Designed by
+        <a href="https://www.invisionapp.com" target="_blank">Invision</a>. Coded by
+        <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>.
+    </div>
+</footer>

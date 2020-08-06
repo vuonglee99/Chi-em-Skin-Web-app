@@ -1,0 +1,5 @@
+<ul class="list-group">
+    <li class="list-group-item text-white text-title " style="background-color:#EF5350;">Danh mục sản phẩm</li>
+    <li class="list-group-item link-item list-group-item-action"  [ngClass]="{'active-item':activeItem == type.PRODTYPE_NAME}" *ngFor="let type of productTypeList" value="{{type.PRODTYPE_ID}}"
+    (click)="redirectTo('/product',type.PRODTYPE_NAME)">{{type.PRODTYPE_NAME}}</li>
+  </ul>

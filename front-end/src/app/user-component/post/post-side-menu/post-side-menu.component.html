@@ -1,0 +1,73 @@
+
+<ul class="side-menu card p-2 wow fadeInDown" style="min-height: 60%;" >
+    <li  class="list-group-item form-group ">
+        <input type="text" placeholder="Tìm kiếm bài đăng" class="form-control rounded-pill">
+       
+    </li>
+    <li class="list-group-item link-item " [ngClass]="{'active-item': active=='Bảng tin'}"
+    (click)="redirectTo('/post','')">
+        <span class="icon-research1 icon-xx-large"><span class="path1"></span><span class="path2"></span><span
+                class="path3"></span><span class="path4"></span><span class="path5"></span><span
+                class="path6"></span><span class="path7"></span><span class="path8"></span><span
+                class="path9"></span><span class="path10"></span><span class="path11"></span><span
+                class="path12"></span><span class="path13"></span><span class="path14"></span><span
+                class="path15"></span><span class="path16"></span><span class="path17"></span><span
+                class="path18"></span><span class="path19"></span><span class="path20"></span><span
+                class="path21"></span><span class="path22"></span><span class="path23"></span><span
+                class="path24"></span><span class="path25"></span><span class="path26"></span><span
+                class="path27"></span><span class="path28"></span><span class="path29"></span><span
+                class="path30"></span><span class="path31"></span><span class="path32"></span><span
+                class="path33"></span><span class="path34"></span><span class="path35"></span><span
+                class="path36"></span><span class="path37"></span></span>
+        &nbsp;Bảng tin
+    </li>
+    <li class="list-group-item link-item list-group-item-action"
+        [ngClass]="{'active-item': active=='Bài đăng của tôi'}" (click)="redirectTo('/post/mypost','')" *ngIf="!unAuth">
+        <span class="icon-checklist-1 icon-xx-large"><span class="path1"></span><span class="path2"></span><span
+                class="path3"></span><span class="path4"></span><span class="path5"></span><span
+                class="path6"></span><span class="path7"></span><span class="path8"></span><span
+                class="path9"></span><span class="path10"></span><span class="path11"></span><span
+                class="path12"></span><span class="path13"></span><span class="path14"></span><span
+                class="path15"></span></span>
+        &nbsp;Bài đăng của tôi
+    </li>
+    <li class="list-group-item link-item list-group-item-action" [ngClass]="{'active-item': active=='Đăng bài'}"
+    (click)="redirectTo('/post/add','')" *ngIf="!unAuth">
+        <span class="icon-clipboard-1 icon-xx-large"><span class="path1"></span><span class="path2"></span><span
+                class="path3"></span><span class="path4"></span><span class="path5"></span><span
+                class="path6"></span><span class="path7"></span><span class="path8"></span><span
+                class="path9"></span><span class="path10"></span><span class="path11"></span><span
+                class="path12"></span><span class="path13"></span><span class="path14"></span></span>
+        &nbsp;Đăng bài
+    </li>
+    <li class="list-group-item link-item list-group-item-action" [ngClass]="{'active-item': active=='Mẹo dưỡng da'}"
+    (click)="redirectTo('/post/tips','')">
+        <span class="icon-skincare icon-xx-large"><span class="path1"></span><span class="path2"></span><span
+                class="path3"></span><span class="path4"></span><span class="path5"></span><span
+                class="path6"></span><span class="path7"></span><span class="path8"></span><span
+                class="path9"></span><span class="path10"></span><span class="path11"></span><span
+                class="path12"></span><span class="path13"></span><span class="path14"></span><span
+                class="path15"></span><span class="path16"></span><span class="path17"></span><span
+                class="path18"></span></span>
+        &nbsp;Mẹo dưỡng da
+    </li>
+    <li class="list-group-item link-item list-group-item-action" [ngClass]="{'active-item': active=='Giải trí'}" >
+        <span class="icon-tv icon-xx-large icon-yellow"></span>
+        Giải trí
+    </li>
+    <li class="list-group-item link-item list-group-item-action" (click)="redirectTo('/post/request/support','')"
+    [ngClass]="{'active-item': active=='Supporting'}"><span
+        class="icon-support icon-x-large"><span class="path1"></span><span class="path2"></span><span
+          class="path3"></span><span class="path4"></span><span class="path5"></span><span
+          class="path6"></span><span class="path7"></span><span class="path8"></span><span
+          class="path9"></span><span class="path10"></span><span class="path11"></span><span
+          class="path12"></span><span class="path13"></span><span class="path14"></span><span
+          class="path15"></span><span class="path16"></span></span>&nbsp;&nbsp;Liên hệ hỗ trợ</li>
+    <li class="list-group-item link-item list-group-item-action"
+        [ngClass]="{'active-item': active=='Cài đặt tài khoản'}" *ngIf="!unAuth"
+        (click)="redirectTo('/post/account','')">
+        <span class="icon-cog icon-xx-large icon-yellow"></span>
+        &nbsp;Cài đặt tài khoản
+    </li>
+
+</ul>

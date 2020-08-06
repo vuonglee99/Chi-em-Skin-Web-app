@@ -1,0 +1,120 @@
+<div [ngClass]="{'disable': isBusy}" class="wrapper p-5 wow fadeInDown" style="margin-top: 3rem !important;">
+    <h5>Danh sách các đơn hàng hiện tại</h5>
+    <div *ngFor="let order of currentOrderList | slice: (pageCurrent-1) * pageSizeCurrent : (pageCurrent-1) * pageSizeCurrent + pageSizeCurrent">
+        <div class="row card mt-3">
+            <div class="col-12 ">
+                <div style="display: inline-flex;">
+                    <div class="ml-5 mt-2">
+                        <p>Mã đơn hàng </p>
+                        <p style="margin-left: -1em;color: rgb(0, 127, 240);"> {{order.ORDER_ID}} </p>
+                    </div>
+
+                    <div class="ml-5 mt-2">
+                        <p>Ngày mua </p>
+                        <p> {{order.ORDER_MAKEDATE}} </p>
+                    </div>
+
+                    <div class="ml-5 mt-2">
+                        <p>Tổng tiền </p>
+                        <span style="color: crimson;">{{order.ORDER_TOTAL | currency: "VND"}}</span>
+                    </div>
+                </div>
+
+                <hr>
+                <div class="mt-2">
+                    <div>
+                        <h5>Giao hàng vào ngày {{order.ORDER_DATE}} </h5>
+                        <p-progressBar [value]="order.ORDER_PROCESSING * 25" [showValue]="false" [style]="{'height': '10px'}">
+                        </p-progressBar>
+                        <p class="mt-2" style="color: #007ad9;">{{order.ORDER_STATUS}}</p>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-4">
+                            <img src="{{order.PRODUCT_IMAGE}}" alt="product image" width="40%">
+                        </div>
+                        <div class="col-8" style="margin-left: -12em;">
+                            <p> {{order.PRODUCT_NAME}} </p>
+                            <p> Giá: <span class="text-red text-title">{{order.PRODUCT_PRICE}}đ</span> </p>
+                            <p>Số lượng: {{order.PRODUCT_AMOUNT}} </p>
+                        </div>
+                        <div class="col-12 text-right">
+                            <button type="button" class="btn btn-danger" (click)="redirectTo('/product/orders/',order.ORDER_ID)">Xem chi tiết
+                                đơn hàng</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <br>
+    </div>
+    <div class="col-12">
+        <ngb-pagination [collectionSize]="totalCurrentOrder" [(page)]="pageCurrent" [pageSize]="pageSizeCurrent"
+            aria-label="Default pagination" class="pagination-primary" style="float: right;">
+        </ngb-pagination>
+    </div>
+    <div class="col-12 mt-3 mb-3 text-center card" *ngIf="isEmpty">
+        <span>
+            <img src="assets/sad_pet.png" width="20%">
+            <h5>Hiện tại bạn không có bất kì đơn hàng nào!</h5>
+            <button class="btn btn-danger ml-2" (click)="redirectTo('/index','')"><i class="fa fa-cart-plus"></i>Tiếp
+                tục mua sắm</button>
+        </span>
+
+    </div>
+
+    <h5>Danh sách tất cả các đơn hàng</h5>
+    <div class="row card wow bounceInUp">
+        <div class="p-col-12">
+            <div class="row p-2">
+                <div class="col-2 mt-2">
+                    Ngày mua
+                </div>
+                <div class="col-6 text-left mt-2">
+                    Tên sản phẩm
+                </div>
+
+                <div class="col-2 mt-2">
+                    Tổng tiền
+                </div>
+                <div class="col-2 mt-2">
+                    Trạng thái
+                </div>
+            </div>
+            <hr>
+        </div>
+
+        <div class="col-12"
+            *ngFor="let order of allOrderList| slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+            <div class="row order-item cursor-pointer" (click)="redirectTo('/product/orders/',order.ORDER_ID)"
+            placement="top" ngbTooltip="Xem chi tiết">
+                <div class="col-2 text-red">
+                    {{order.ORDER_MAKEDATE}}
+                </div>
+                <div class="col-6 text-left">
+                    {{order.PRODUCT_NAME}}
+                </div>
+
+                <div class="col-2">
+                    {{order.ORDER_TOTAL | currency: "VND"}}
+                </div>
+                <div class="col-2 text-red">
+                    {{order.ORDER_STATUS}}
+                </div>
+            </div>
+            <hr>
+        </div>
+        <div class="col-12">
+            <ngb-pagination [collectionSize]="totalOrders" [(page)]="page" [pageSize]="pageSize"
+                aria-label="Default pagination" class="pagination-primary" style="float: right;">
+            </ngb-pagination>
+        </div>
+    </div>
+    <hr>
+
+    <div *ngIf="isBusy" class="screen-center">
+        <app-spinner></app-spinner>
+    </div>
+</div>

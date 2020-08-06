@@ -1,0 +1,14 @@
+<div [ngClass]="{'disable': isBusy}" class="wrapper p-2 wow fadeInDown" style="margin-top: 3rem !important;">
+    <div class="row mt-3" style="position: relative;">
+        <div class="col-3 mt-3">
+            <app-post-side-menu [active]="'Mẹo dưỡng da'"></app-post-side-menu>
+
+        </div>
+        <div class="col-8 ml-auto">
+            <app-tip-list [isPaging]="true" [pageSize]="5"></app-tip-list>
+        </div>
+    </div>
+    <div *ngIf="isBusy" class="screen-center">
+        <app-spinner></app-spinner>
+    </div>
+</div>

@@ -1,0 +1,156 @@
+
+<div [ngClass]="{'disable': isBusy}" class="wrapper p-2 wow fadeInDown" style="margin-top: 5rem !important;">
+    <div class="col-12 mb-5">
+        <app-skincare-menu [active]="'SkinInfo'"></app-skincare-menu>
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-12" *ngIf="skinType" >
+        <div class="row wow bounce" style="padding: 1em;">
+            <div class="col-sm-2 col-md-2 col-lg-2">
+                <img [src]="currentUser.USER_AVATAR" class="rounded-circle" alt="avatar" width="100%">
+            </div>
+            <div class="col-md-8 " *ngIf="skinType">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Nhóm da của {{currentUser.USER_NAME}} là: <span> {{skinType.SKINTYPE_NAME}}</span> </h4>
+                    </div>
+                    <div class="col-md-12"></div>
+                    <div class="col-md-3">
+                        <img [src]="skinType.SKINTYPE_IMAGE_1" alt="image1" width="100%">
+                    </div>
+                    <div class="col-md-3 ml-2">
+                        <img [src]="skinType.SKINTYPE_IMAGE_2" alt="image2" width="100%">
+                    </div>
+                    <div class="col-md-3 ml-2">
+                        <img [src]="skinType.SKINTYPE_IMAGE_3" alt="image3" width="100%">
+                    </div>
+                </div>
+            </div>
+ 
+        </div>
+        <hr>
+
+        <div class="row mt-5" *ngIf="!isDetail">
+            <div class="card col-5 mb-5 wow slideInLeft" style="height: 350px;" >
+                <div class="card-header text-center" style="background-color: rgb(255,183,101);">
+                    <h5>Hiểu rõ hơn về {{skinType.SKINTYPE_NAME}}</h5>
+                </div>
+                <div class="card-body mt-auto" >
+                    <ul>
+                        <li >Thế nào là {{skinType.SKINTYPE_NAME}}.</li>
+                        <li class="mt-3">Biểu hiện của {{skinType.SKINTYPE_NAME}}.</li>
+                        <li class="mt-3">Các thông tin hữu ích khác.</li>
+                    </ul>
+                </div>
+                <div class="card-footer ">
+                    <button type="button" class="btn btn-danger " (click)="showDetail('1')">
+                        Detail <i class="fa fa-chevron-right"></i></button>
+                </div>
+            </div>  
+
+            <div class="card col-5 ml-auto wow slideInRight"  style="height: 350px;" >
+                <div class="card-header text-center" style="background-color: rgb(243,174,193);">
+                    <h5>Quy trình cho {{skinType.SKINTYPE_NAME}}</h5>
+                </div>
+                <div class="card-body mt-auto" >
+                    <ul>
+                        <li >Quy trình chăm sóc {{skinType.SKINTYPE_NAME}} sáng và tối.</li>
+                        <li class="mt-3">Các bước chăm sóc da cơ bản và chuyên sâu. </li>
+                        <li class="mt-3">Các loại mỹ phẩm nên dùng.</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <button type="button" class="btn btn-danger " (click)="showDetail('2')">
+                        Detail <i class="fa fa-chevron-right"></i></button>
+                </div>
+            </div> 
+
+            <div class="card col-5 wow slideInLeft" style="height: 350px;">
+                <div class="card-header text-center" style="background-color: rgb(135,155,206);">
+                    <h5>Cẩm nang mua mỹ phẩm cho {{skinType.SKINTYPE_NAME}}</h5>
+                </div>
+                <div class="card-body mt-auto" >
+                    <ul>
+                        <li >Đặc điểm các loại mỹ phẩm dành riêng cho {{skinType.SKINTYPE_NAME}} .</li>
+                        <li class="mt-3">Cách chọn mỹ phẩm cho {{skinType.SKINTYPE_NAME}}.</li>
+                        <li class="mt-3">Các thông tin hữu ích khác.</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <button type="button" class="btn btn-danger " (click)="showDetail('3')">
+                        Detail <i class="fa fa-chevron-right"></i></button>
+                </div>
+            </div> 
+
+            <div class="card col-5 ml-auto wow slideInRight" style="height: 350px;">
+                <div class="card-header bg-info text-center" >
+                    <h5>Các thành phần nên/không nên có trong quy trình dưỡng da</h5>
+                </div>
+                <div class="card-body mt-auto" >
+                    <ul>
+                        <li >Các thành phần không/ít gây kích ứng cho {{skinType.SKINTYPE_NAME}}.</li>
+                        <li class="mt-3">Các thành phần gây kích ứng nên tránh.</li>
+                        <li class="mt-3">Các thông tin hữu ích khác.</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <button type="button" class="btn btn-danger  ">
+                        Detail <i class="fa fa-chevron-right"></i></button>
+                </div>
+            </div> 
+
+        </div>
+
+
+        <div class="row mt-5" *ngIf="isDetail">
+            <div class="card col-12 wow bounceInUp" *ngIf="isDetail1">
+                <div class="card-header  text-center" style="background-color: rgb(255,183,101);">
+                    <h5>Hiểu rõ hơn về {{skinType.SKINTYPE_NAME}}</h5>
+                </div>
+                <div class="card-body mt-3">
+                    <div [innerHTML]="skinType.SKINTYPE_INFO"></div>
+                </div>
+                <div class="card-footer">
+                    <button type="button" class="btn btn-primary  " (click)="cancelDetail()">
+                        <i class="fa fa-chevron-left"></i> Back </button>
+                </div>
+            </div>
+
+            <div class="card col-12 wow bounceInUp" *ngIf="isDetail2">
+                <div class="card-header  text-center" style="background-color: rgb(243,174,193);">
+                    <h5>Quy trình dưỡng da cho {{skinType.SKINTYPE_NAME}}</h5>
+                </div>
+                <div class="card-body mt-3 row">
+                    <div class="col-6">
+                        <div [innerHTML]="skinType.SKINTYPE_ROUTINE_1"></div>
+                    </div>
+                    <div class="col-6">
+                        <div [innerHTML]="skinType.SKINTYPE_ROUTINE_2"></div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="button" class="btn btn-primary  " (click)="cancelDetail()">
+                        <i class="fa fa-chevron-left"></i> Back </button>
+                </div>
+            </div>
+
+            <div class="card col-12 wow bounceInUp" *ngIf="isDetail3">
+                <div class="card-header  text-center" style="background-color: rgb(135,155,206);">
+                    <h5>Cẩm nang mua mỹ phẩm cho {{skinType.SKINTYPE_NAME}}</h5>
+                </div>
+                <div class="card-body mt-3 row">
+                    <div [innerHTML]="skinType.SKINTYPE_TIP"></div>
+                </div>
+                <div class="card-footer">
+                    <button type="button" class="btn btn-primary  " (click)="cancelDetail()">
+                        <i class="fa fa-chevron-left"></i> Back </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div *ngIf="isBusy" class="screen-center">
+        <app-spinner></app-spinner>
+    </div>
+
+</div>

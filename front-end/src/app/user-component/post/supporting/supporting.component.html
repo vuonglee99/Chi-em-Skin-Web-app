@@ -1,0 +1,72 @@
+<div [ngClass]="{'disable': isBusy}" class="wrapper p-2 wow fadeInDown" style="margin-top: 3rem !important;">
+    <div class="row mt-3" style="position: relative;">
+        <div class="col-3 mt-3">
+            <app-post-side-menu [active]="'Supporting'"></app-post-side-menu>
+        </div>
+        <div class="col-8 ml-auto mt-3">
+            <div class="row">
+                <form [formGroup]="supportingForm" class="col-12 card p-3">
+                    <div class="row">
+                        <div class="col-12 text-red text-title mb-3">
+                            GỬI YÊU CẦU HỖ TRỢ
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="NOTICE_FROM"><strong>Họ tên<span style="color: red;">(*)</span></strong></label>
+                            <div class="input-group" [ngClass]="{'input-group-focus':focus===true}">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-user-circle"></i>
+                                    </span>
+                                </div>
+                                <input type="email" class="form-control" placeholder="Tên đăng nhập"
+                                    (focus)="focus=true" (blur)="focus=false" name=" NOTICE_FROM"
+                                    [(ngModel)]="noticeInput.NOTICE_FROM" formControlName="NOTICE_FROM" required>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="USER_EMAIL"><strong>Địa chỉ Email<span
+                                        style="color: red;">(*)</span></strong></label>
+                            <div class="input-group" [ngClass]="{'input-group-focus':focus1===true}">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="pi pi-envelope"></i>
+                                    </span>
+                                </div>
+                                <input type="email" class="form-control" placeholder="Địa chỉ Email"
+                                    (focus)="focus1=true" (blur)="focus1=false" name=" USER_EMAIL"
+                                    [(ngModel)]="currentUser.USER_EMAIL" formControlName="EMAIL">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <label for="NOTICE_TITLE"><strong>Tiêu đề<span
+                                        style="color: red;">(*)</span></strong></label>
+
+                            <textarea type="text" class="form-control textarea" row="2" placeholder="Tiêu đề"
+                                (focus)="focus2=true" (blur)="focus2=false" name=" NOTICE_TITLE"
+                                [(ngModel)]="noticeInput.NOTICE_TITLE" formControlName="NOTICE_TITLE"
+                                required></textarea>
+
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="NOTICE_CONTENT"><strong>Nội dung<span
+                                        style="color: red;">(*)</span></strong></label>
+                            <textarea type="text" class="form-control textarea" row="3"
+                                placeholder="Nội dung cần hỗ trợ" (focus)="focus3=true" (blur)="focus3=false"
+                                name=" NOTICE_CONTENT" [(ngModel)]="noticeInput.NOTICE_CONTENT"
+                                formControlName="NOTICE_CONTENT" required></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-12 text-left mt-3">
+                <button class="btn btn-primary btn-round" type="button" (click)="addNotice()" [disabled]="!supportingForm.valid">
+                    <i class="now-ui-icons ui-2_favourite-28"></i>&nbsp;Gửi
+                </button>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="isBusy" class="screen-center">
+        <app-spinner></app-spinner>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+<div class="wrapper wow fadeInDown" style="margin-top: 5rem;">
+    <div class="main">
+        <div class="container" *ngIf="productInput">
+            <div class="row">
+                    <ul class="col-12 inline-list">
+                        <li *ngFor="let image of imageObject" class="ml-1">
+                            <img src="{{image}}" width="100" height="100">
+                        </li>
+                    </ul>
+                <div class="col-3 mt-3" >
+                    <app-product-menu ></app-product-menu>
+                </div>
+                <div class="col-9 mt-3">
+                    <div class="card  ">
+                        <div class="nav-tabs-navigation"  >
+                            <div class="nav-tabs-wrapper">
+                                <ngb-tabset >
+                                    <ngb-tab title="Tất cả">
+                                        <ng-template ngbTabContent style="margin: 1rem;">
+                                            <div style="margin: 1rem;">
+                                                <app-product-list [numProductOnRow]="'col-3'" [isAutoSlider]="false" [productName]="productInput.PRODUCT_NAME" [pageSize]="16" [isPaging]="true"></app-product-list>
+                                            </div>
+                                        </ng-template>
+                                    </ngb-tab>
+                                    <ngb-tab title="Nổi bật">
+                                        <ng-template ngbTabContent>
+                                            <div style="margin: 1rem;">
+                                                <app-product-list [numProductOnRow]="'col-3'" [isAutoSlider]="false" [productName]="productInput.PRODUCT_NAME" [pageSize]="16" [isPaging]="true" [sortBy]="'PRODUCT_RATING'" [isMinToMax]="false"></app-product-list>
+                                            </div>
+                                        </ng-template>
+                                    </ngb-tab>
+                                    <ngb-tab title="Giá thấp -> cao">
+                                        <ng-template ngbTabContent>
+                                            <div style="margin: 1rem;">
+                                                <app-product-list [numProductOnRow]="'col-3'" [isAutoSlider]="false" [productName]="productInput.PRODUCT_NAME" [pageSize]="16" [isPaging]="true" [sortBy]="'PRODUCT_PRICE'" [isMinToMax]="true"></app-product-list>
+                                            </div>
+                                        </ng-template>
+                                    </ngb-tab>
+                                    <ngb-tab title="Giá cao -> thấp">
+                                        <ng-template ngbTabContent>
+                                            <div style="margin: 1rem;">
+                                                <app-product-list [numProductOnRow]="'col-3'" [isAutoSlider]="false" [productName]="productInput.PRODUCT_NAME" [pageSize]="16" [isPaging]="true" [sortBy]="'PRODUCT_PRICE'" [isMinToMax]="false"></app-product-list>
+                                            </div>
+                                        </ng-template>
+                                    </ngb-tab>
+                                </ngb-tabset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

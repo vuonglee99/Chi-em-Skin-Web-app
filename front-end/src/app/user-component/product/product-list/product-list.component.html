@@ -1,0 +1,70 @@
+<div class="row " [ngClass]="{'disable': isBusy}" *ngIf="!isAutoSlider&&pageSize">
+    <div *ngFor="let product of productList | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize" [ngClass]="numProductOnRow">
+        <div class="row mt-3">
+            <div class="col-12 text-center" style="height: 200px;">
+                <img src="{{product.PRODUCT_IMAGE}}" width="100%" alt="{{product.PRODUCT_NAME}}" class="product-zoom-image"
+                placement="right" ngbTooltip="Xem chi tiết" (click)="redirectTo('/product/detail/',product.PRODUCT_ID)">
+            </div>
+            <div class="col-12 mt-2 text-center" style="font-size: 13px; height: 60px;"
+            placement="right" ngbTooltip="{{product.PRODUCT_NAME}}">
+                {{product.PRODUCT_NAME | slice: 0:50}}...
+            </div>
+            <div class="col-12 mt-2 text-center">
+                <p-rating [ngModel]="product.PRODUCT_RATING"  ngDefaultControl  readonly="true" stars="5" [cancel]="false"></p-rating>
+            </div>
+            <div class="col-12 text-center text-red text-title text-center">
+                {{product.PRODUCT_PRICE  | currency : "VND" }}
+            </div>
+            <div class="col-12 text-center mt-2">
+                <button class="btn btn-primary btn-round" type="button" (click)="addToCart(product)" *ngIf="product.PRODUCT_TOTAL >0">
+                    <i class="now-ui-icons ui-2_favourite-28"></i> Chọn mua
+                </button>
+                <button class="btn btn-dark btn-round" type="button"  *ngIf="product.PRODUCT_TOTAL ===0">
+                    <i class="now-ui-icons ui-2_favourite-28"></i> Hết hàng
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 mt-3 text-center" *ngIf="isEmpty">
+        <span>
+            <img src="assets/sad_pet.png" width="20%">
+            <h5 class="mt-3">Không tìm thấy bất kì sản phẩm nào!</h5>
+        </span>
+
+    </div>
+    <div class="col-12" *ngIf="isPaging">
+        <ngb-pagination [collectionSize]="totalProduct" [(page)]="page" [pageSize]="pageSize"  aria-label="Default pagination" 
+        class="pagination-primary" style="float: right;">
+        </ngb-pagination>
+    </div>
+
+    <div *ngIf="isBusy" class="screen-center">
+        <app-spinner></app-spinner>
+    </div>
+</div>
+
+<!-- <div class="row" [ngClass]="{'disable': isBusy}" *ngIf="isAutoSlider">
+     <ngb-carousel>
+            <ng-template ngbSlide *ngFor="let product of productsOnPage" [ngClass]="numProductOnRow">
+                <div class="row">
+                    <div class="col-12 text-center" style="height: 200px;">
+                        <img src="{{product.PRODUCT_IMAGE}}" width="100%" alt="{{product.PRODUCT_NAME}}"
+                            pTooltip="Click để xem chi tiết" tooltipPosition="right">
+                    </div>
+                    <div class="col-12 mt-2" style="font-size: 13px; height: 100px;">
+                        {{product.PRODUCT_NAME}}
+                    </div>
+                    <div class="col-12 mt-2 text-center">
+                        <p-rating [ngModel]="product.PRODUCT_RATING" readonly="true" stars="5" [cancel]="false">
+                        </p-rating>
+                    </div>
+                    <div class="col-12 text-center title-font text-center">
+                        {{product.PRODUCT_PRICE}}đ
+                    </div>
+                    <div class="col-12 text-center mt-2">
+                    </div>
+                </div>
+            </ng-template>
+
+    </ngb-carousel> 
+</div> -->

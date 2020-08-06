@@ -1,0 +1,41 @@
+<div [ngClass]="{'disable': isBusy}" *ngIf="pageSize">
+    <div
+        *ngFor="let question of questionList| slice: (page-1) * pageSize : (page-1) * pageSize + pageSize;let i=index;">
+        <div class="row">
+            <div class="col-1">
+                <img src="assets/img/skincare/question_avatar.jpg" width="100%">
+            </div>
+            <div class="col-10">
+                <p-rating stars="5" [cancel]="false" [(ngModel)]="question.PRODUCT_RATING" *ngIf="isProductQuestion">
+                </p-rating>
+                <span>{{question.QUESTION_CONTENT}}</span>
+                <br>
+                <span class="ml-2 cursor-pointer">{{question.QUESTION_ANSWER}} <span style="opacity: 0.5;"
+                        (click)="showAnswer(i)">&nbsp;(trả lời)</span></span>
+                <br>
+                <span class="ml-2" *ngIf="isAnswer&&((i-indexShow)==0)&&!unAuth">
+                    <input type="text" placeholder="Viết bình luận" class="form-control rounded-pill"
+                        (keydown)="answerQuestion($event,question,i)" [(ngModel)]="questionInput.QUESTION_ANSWER">
+                </span>
+                <span class="fa fa-clock" style="color: #E91E63;opacity: 0.7;">
+                    <span>&nbsp;{{question.QUESTION_TIME}}</span></span>
+            </div>
+
+        </div>
+        <hr>
+    </div>
+    <div class="col-12 mt-3 text-center" *ngIf="isEmpty">
+        <span>
+            <img src="assets/sad_pet.png" width="20%">
+            <h5 class="mt-3">Chưa có bình luận/đánh giá!</h5>
+        </span>
+    </div>
+    <div class="col-12" *ngIf="isPaging">
+        <ngb-pagination [collectionSize]="totalQuestion" [(page)]="page" [pageSize]="pageSize"
+            aria-label="Default pagination" class="pagination-primary" style="float: right;">
+        </ngb-pagination>
+    </div>
+    <div *ngIf="isBusy" class="screen-center">
+        <app-spinner></app-spinner>
+    </div>
+</div>

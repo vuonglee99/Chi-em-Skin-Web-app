@@ -1,0 +1,17 @@
+<div [ngClass]="{'disable': isBusy}" class="wrapper p-2 wow fadeInDown" style="margin-top: 3rem !important;">
+    <div class="row mt-3" style="position: relative;">
+        <div class="col-3 mt-3">
+            <app-post-side-menu [active]="'Bài đăng của tôi'"></app-post-side-menu>
+
+        </div>
+        <div class="col-6 ml-auto">
+            <app-post-list [isPaging]="true" [pageSize]="6" [userID]="currentUser.USER_ID" [isMaker]="isMaker"></app-post-list>
+        </div>
+        <div class="col-2">
+            <app-product-list [numProductOnRow]="'col-12'" [isAutoSlider]="false" [isPaging]="false" [sortBy]="'PRODUCT_RATING'" [isMinToMax]="false" [pageSize]="4"></app-product-list>
+        </div>
+    </div>
+    <div *ngIf="isBusy" class="screen-center">
+        <app-spinner></app-spinner>
+    </div>
+</div>
