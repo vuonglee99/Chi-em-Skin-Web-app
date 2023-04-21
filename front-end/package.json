@@ -36,7 +36,7 @@
     "copy-webpack-plugin": "5.0.1",
     "core-js": "3.6.4",
     "font-awesome": "4.7.0",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "jw-bootstrap-switch-ng2": "2.0.5",
     "ng-bootstrap-form-validation": "^5.0.0",
     "ng-image-slider": "^2.5.0",
